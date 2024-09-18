@@ -1,13 +1,25 @@
 FROM node:16
 
+# Define o diretório de trabalho
 WORKDIR /usr/src/app
 
+# Copia os arquivos de dependências
 COPY package*.json ./
 
+# Copia o script de espera
+COPY wait-for-it.sh ./
+
+# Instala as dependências
 RUN npm install
 
+# Copia o restante do código
 COPY . .
 
+# Torna o script executável
+RUN chmod +x wait-for-it.sh
+
+# Expõe a porta que a aplicação irá rodar
 EXPOSE 3000
 
-CMD [ "node", "app.js" ]
+# Comando para iniciar a aplicação após verificar o MySQL
+CMD ["./wait-for-it.sh", "db:3306", "--", "node", "app.js"]
