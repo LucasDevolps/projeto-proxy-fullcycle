@@ -11,13 +11,13 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: password
     ports:
-      - "3307:3306"  # Porta alterada para evitar conflito
+      - "3307:3306" 
     volumes:
       - db_data:/var/lib/mysql
 
   app:
     build: ./app
-    image: lucasribeirodesouza2000/proxy-nginx-fullcycle:latest  # Nome da imagem no Docker Hub
+    image: lucasribeirodesouza2000/proxy-nginx-fullcycle:latest  
     environment:
       DB_HOST: db
       DB_USER: user
