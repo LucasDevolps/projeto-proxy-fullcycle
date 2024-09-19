@@ -11,13 +11,19 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: password
     ports:
-      - "3307:3306" 
+      - "3307:3306"  # Porta alterada para evitar conflito
     volumes:
       - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s  # Aguarda 30 segundos antes de iniciar os healthchecks
 
   app:
     build: ./app
-    image: lucasribeirodesouza2000/proxy-nginx-fullcycle:latest  
+    image: lucasribeirodesouza2000/proxy-nginx-fullcycle:latest  # Nome da imagem no Docker Hub
     environment:
       DB_HOST: db
       DB_USER: user
