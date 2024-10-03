@@ -12,6 +12,10 @@ COPY . .
 
 RUN chmod +x wait-for-it.sh
 
+RUN npm install
+RUN npm install -g nodemon  # Instala nodemon globalmente
+
+
 EXPOSE 3000
 
 CMD ["./wait-for-it.sh", "db:3306", "--timeout=60", "--", "node", "app.js"]
