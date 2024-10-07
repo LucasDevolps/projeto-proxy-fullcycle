@@ -8,6 +8,11 @@ COPY wait-for-it.sh ./
 
 RUN npm install
 
+COPY wait-for-it.sh /app/wait-for-it.sh
+
+RUN chmod +x /app/wait-for-it.sh
+
+
 COPY . .
 
 RUN chmod +x wait-for-it.sh
